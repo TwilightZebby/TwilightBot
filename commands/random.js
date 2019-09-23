@@ -4,7 +4,7 @@ module.exports = {
     name: 'random',
     description: 'Selects a random User!',
     usage: ' ',
-    commandType: 'general',
+    commandType: 'fun',
     guildAccess: 'all',
     guildOnly: true,
     cooldown: 3,

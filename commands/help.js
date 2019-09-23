@@ -18,6 +18,7 @@ module.exports = {
         helpEmbed.addField(`General Commands`, commands.filter(command => command.commandType === 'general').map(command => command.name).join(', '));
         helpEmbed.addField(`Informational Commands`, commands.filter(command => command.commandType === 'information').map(command => command.name).join(', '));
         helpEmbed.addField(`Management Commands`, commands.filter(command => command.commandType === 'management').map(command => command.name).join(', '));
+        helpEmbed.addField(`Fun Commands`, commands.filter(command => command.commandType === 'fun').map(command => command.name).join(', '));
         helpEmbed.addField('\u200B', `You can use \`${PREFIX}help [command name]\` to get more info on a specific command!`);
 
         return message.channel.send(helpEmbed);

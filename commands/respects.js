@@ -4,6 +4,7 @@ module.exports = {
     usage: '<@user>',
     aliases: ['respect', 'r', 'f'],
     commandType: 'general',
+    args: true,
     guildAccess: 'all',
     execute(message, args) {
       const argsTest = args[0];
