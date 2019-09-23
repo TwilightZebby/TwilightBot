@@ -1,0 +1,5 @@
+config.js
+database.sqlite
+/images
+/node_modules
+/commands/light.js

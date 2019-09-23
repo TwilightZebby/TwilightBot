@@ -1,0 +1,35 @@
+{
+  "name": "TwilightBot",
+  "version": "1.5.2",
+  "description": "A small Discord bot I made.",
+  "main": "index.js",
+  "dependencies": {
+    "@discordjs/uws": "^11.149.1",
+    "bufferutil": "^4.0.1",
+    "discord.js": "github:discordjs/discord.js",
+    "erlpack": "github:discordapp/erlpack",
+    "install": "^0.13.0",
+    "kasa_control": "^0.1.0",
+    "libsodium-wrappers": "^0.7.5",
+    "lodash": "^4.17.15",
+    "sequelize": "^5.16.0",
+    "sqlite3": "^4.1.0",
+    "zlib-sync": "^0.1.5",
+    "zucc": "^0.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TwilightZebby/EclipsedUnoDiscord.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TwilightZebby/EclipsedUnoDiscord/issues"
+  },
+  "homepage": "https://github.com/TwilightZebby/EclipsedUnoDiscord#readme"
+}
