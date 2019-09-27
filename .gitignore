@@ -1,5 +1,6 @@
+# For security
 config.js
 database.sqlite
+# For tidyness
 /images
 /node_modules
-/commands/light.js
