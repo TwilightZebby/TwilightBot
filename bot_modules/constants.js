@@ -24,5 +24,5 @@ exports.sequelize = new Sequelize('database', 'user', 'password', {
  * TP LINK KASA
  ********************/
 
- const KasaControl = require('kasa_control');
- exports.kasa = new KasaControl();
+ const KasaControl = require('kasa_control'); // Brings in the TP-Link Kasa stuff from NPM
+ exports.kasa = new KasaControl(); // Creates a new Kasa Client, ready for use in the /commands/light.js file

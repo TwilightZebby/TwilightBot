@@ -58,6 +58,7 @@ module.exports = {
       }
       // *******************
       // ADMIN COMMAND TO RESET USER'S DATABASE ROW
+      // Currently only reset's self for now.
       // *******************
       else if(mentionCommand === 'reset') {
         if(message.author.id != '156482326887530498') {

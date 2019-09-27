@@ -6,7 +6,7 @@ module.exports = {
     description: 'Annoy people! **Mwhahahahahahaha!**',
     usage: '@user',
     args: true,
-    commandType: 'secret',
+    commandType: 'secret', // Hides from Help Command
     guildAccess: 'trusted',
     cooldown: 60,
     async execute(message, args) {
@@ -31,6 +31,7 @@ module.exports = {
 
       /***************
        * To force WAITING
+       * Sourced this function from StackOverflow - I'll have to try and find the URL again!
        ***************/
        function sleep(ms) {
          return new Promise(resolve => setTimeout(resolve, ms));
@@ -40,19 +41,23 @@ module.exports = {
         * Actual Command
         ***************/
 
-      const unluckyUser = getUserFromMention(args[0]);
-      var annoyanceMethod = 0;
+      const unluckyUser = getUserFromMention(args[0]); // Grabs the victim
+      var annoyanceMethod = 0; // For now, used to see if Victim is safe or not :P
       annoyanceMethod = Math.floor((Math.random() * 10) + 1);
+      // Can't remember what I needed these two lines for....
       var annoyLoop = null;
       var annoyLoopInt = 0;
 
+      // VICTIM IS SAFE FROM ANNOYANCE
       if(annoyanceMethod >= 0 && annoyanceMethod <= 3) {
-        message.delete();
+        message.delete(); // To help hide who ran the command :P
         annoyEmbed.addField(`Awh, what a shame!`, `Seems like ${unluckyUser} was lucky this time! Of course, I'm not going to tell them! ;)`);
         return messageSender.send(annoyEmbed);
       } else if(annoyanceMethod >= 4 && annoyanceMethod <= 10) {
-        message.delete();
+        message.delete(); // To help hide who ran the command :P
 
+        // To randomise how long Victim should be pinged for
+        // Between 1 and 20 minutes
         var pingAnnoyAmount = 0;
         pingAnnoyAmount = Math.floor((Math.random() * 20) + 1);
         pingAnnoyTime = pingAnnoyAmount * 60000;

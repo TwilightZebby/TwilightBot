@@ -1,15 +1,15 @@
-//Creating the veraibles needed
-const fs = require('fs'); //Node's native file system
-const Discord = require("discord.js"); //Bringing in Discord.js
-const Sequelize = require('sequelize');
-const { client, sequelize } = require('./bot_modules/constants.js');
-const { Pings } = require('./bot_modules/tables.js');
-const { PREFIX, TOKEN } = require('./config.js'); //Slapping the PREFIX and token into their own vars
-client.commands = new Discord.Collection(); //Extends JS's native map class
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); //Picks up all the .js files in the commands folder
-const cooldowns = new Discord.Collection(); //For Cooldowns to work
+// Creating the veraibles needed
+const fs = require('fs'); // Node's native file system
+const Discord = require("discord.js"); // Bringing in Discord.js
+const Sequelize = require('sequelize'); // Brings in Sequelize - used for Database stuff
+const { client, sequelize } = require('./bot_modules/constants.js'); // Brings in the Discord Bot's Client and Sequelize Database
+const { Pings } = require('./bot_modules/tables.js'); // Brings in the Sequelize Db table
+const { PREFIX, TOKEN } = require('./config.js'); // Slapping the PREFIX and token into their own vars
+client.commands = new Discord.Collection(); // Extends JS's native map class
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // Picks up all the .js files in the commands folder
+const cooldowns = new Discord.Collection(); // For Cooldowns to work
 
-for (const file of commandFiles) { //Slaps all the command files into the Collection
+for (const file of commandFiles) { // Slaps all the command files into the Collection
     const command = require(`./commands/${file}`);
 
     // set a new item in the Collection
@@ -17,11 +17,11 @@ for (const file of commandFiles) { //Slaps all the command files into the Collec
     client.commands.set(command.name, command);
 }
 
-//To make sure the bot is up and running
+// To make sure the bot is up and running
 client.on("ready", () => {
-  Pings.sync();
+  Pings.sync(); // Force-syncs the Db Table to ensure it is up to date
   console.log("I am ready!");
-  client.user.setActivity(`${PREFIX}help`); //Sets a Playing Status on the Bot
+  client.user.setActivity(`${PREFIX}help`); // Sets a Playing Status on the Bot
 });
 /***********************************************/
 /*THE COMMANDS*/
@@ -29,8 +29,8 @@ client.on("ready", () => {
 
 client.on("message", async (message) => {
 
-	//Special command code
-  //If the msg does NOT start with the PREFIX, OR it was sent by the bot itself - STOP
+	// Special command code
+  // If the msg does NOT start with the PREFIX, OR it was sent by the bot itself - STOP
   if (!message.content.startsWith(PREFIX) || message.author.bot) {
 		if (message.author.bot) return; // If message was sent by a Bot, return!
 		if (!message.mentions.everyone && !message.mentions.roles.size && !message.mentions.users.size) return; // If NO mentions, return!
@@ -56,6 +56,7 @@ client.on("message", async (message) => {
 
       const newAllPingAmount = oldAllPingAmount + pingAmount;
 
+      // Update User's Db entry with new amount of Pings
 			const allPings = await Pings.update({ all_ping_count: newAllPingAmount }, { where: { userID: message.author.id } });
 			if(allPings > 0) {
 				// Successful Addition of ALL PINGS
@@ -231,16 +232,16 @@ client.on("message", async (message) => {
 	};
 
 
-  //Slides the PREFIX off the command
+  // Slides the PREFIX off the command
   const args = message.content.slice(PREFIX.length).split(/ +/);
-  //Slaps the cmd into its own var
+  // Slaps the cmd into its own var
   const commandName = args.shift().toLowerCase();
-  //If there is NOT a command with the given name or aliases, exit early
+  // If there is NOT a command with the given name or aliases, exit early
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
   if (!command) return;
 
-  //COOLDOWNS
-  //If a command has 'cooldown: x,' it will enable cooldown IN SECONDS
+  // COOLDOWNS
+  // If a command has 'cooldown: x,' it will enable cooldown IN SECONDS
   if (!cooldowns.has(command.name)) {
      cooldowns.set(command.name, new Discord.Collection());
    }
@@ -261,21 +262,21 @@ client.on("message", async (message) => {
      setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
    }
 
-  //A check for if the user ran a command inside DMs
-  //if a cmd has 'guildOnly: true,', it won't work in DMs
+  // A check for if the user ran a command inside DMs
+  // if a cmd has 'guildOnly: true,', it won't work in DMs
   if (command.guildOnly && message.channel.type !== 'text') {
     return message.reply('I can\'t execute that command inside DMs!');
   }
 
-  //A check for if the user ran a command inside Guilds
-  //if a cmd has 'dmOnly: true,', it won't work in Guilds
+  // A check for if the user ran a command inside Guilds
+  // if a cmd has 'dmOnly: true,', it won't work in Guilds
   if (command.dmOnly && message.channel.type !== 'dm') {
     return message.reply('I can\'t execute that command inside Guilds!')
   }
 
-  //A check for missing parameters
-  //If a cmd has 'args: true,', it will throw the error
-  //Requires the cmd file to have 'usage: '<user> <role>',' or similar
+  // A check for missing parameters
+  // If a cmd has 'args: true,', it will throw the error
+  // Requires the cmd file to have 'usage: '<user> <role>',' or similar
   if (command.args && !args.length) {
     let reply = `You didn't provide any arguments, ${message.author}!`;
       if (command.usage) {
@@ -284,15 +285,15 @@ client.on("message", async (message) => {
       return message.channel.send(reply);
   }
 
-  //If there is, grab and run that command's execute() function
+  // If there is, grab and run that command's execute() function
   try {
     command.execute(message, args);
-  } //Any errors are caught here, and thrown back at the User and Console
+  } // Any errors are caught here, and thrown back at the User and Console
   catch (error) {
     console.error(error);
     message.reply('There was an error trying to execute that command!');
   }
-  //Extra Error Catching
+  // Extra Error Catching
   process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
   /******************************************************/
@@ -300,5 +301,5 @@ client.on("message", async (message) => {
 });
 
 /***********************************************/
-//The token to connect the bot to the Bot Account on Discord
+// The token to connect the bot to the Bot Account on Discord
 client.login(TOKEN);
