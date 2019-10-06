@@ -4,7 +4,7 @@ module.exports = {
     usage: '[Amount of Messages]',
     args: true,
     commandType: 'management',
-    guildAccess: 'all',
+    guildAccess: 'trusted',
     guildOnly: true,
     cooldown: 10,
     execute(message, args) {

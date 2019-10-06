@@ -11,12 +11,10 @@ module.exports = {
     execute(message) {
       const updateEmbed = new Discord.MessageEmbed().setColor('#370bb3').setFooter('Changelog');
 
-      updateEmbed.setTitle(`Version 1.6.0`);
-      updateEmbed.setDescription(`Released 23rd September 2019`);
-      updateEmbed.addField(`Added Random Command`, `Randomly selects a random member of the Server!\nDon't worry, this replies using Embeds so the selected User isn\'t pinged!.`);
-      updateEmbed.addField(`Added Annoy Command`, `Spam sends Pings to the victim\'s DMs for up to 20 minutes!`);
-      updateEmbed.addField(`Added RPS Command`, `Allows you to play Rock Paper Scissors with the Bot!`);
-      updateEmbed.addField(`Created a Repo for this Bot on Github!`, `[Click here to view!](https://www.github.com/TwilightZebby/TwilightBot)`);
+      updateEmbed.setTitle(`Version 1.7.0`);
+      updateEmbed.setDescription(`Released 6th October 2019`);
+      updateEmbed.addField(`Changes to all commands`, `All the commands now have a hard-coded check to see what Server they were used in.\nThis is so I can limit some commands to Trusted Servers only!`);
+      updateEmbed.addField(`Removed Mentions Command & Module`, `It was broken and I\'m still learning Databases`);
 
       return message.channel.send(updateEmbed);
 

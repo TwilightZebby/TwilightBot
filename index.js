@@ -4,6 +4,7 @@ const Discord = require("discord.js"); // Bringing in Discord.js
 const Sequelize = require('sequelize'); // Brings in Sequelize - used for Database stuff
 const { client, sequelize } = require('./bot_modules/constants.js'); // Brings in the Discord Bot's Client and Sequelize Database
 const { Pings } = require('./bot_modules/tables.js'); // Brings in the Sequelize Db table
+const { PRIVATE, TRUSTED } = require('./bot_modules/guilds.js'); // Used for checking Command Access Perms per Guild
 const { PREFIX, TOKEN } = require('./config.js'); // Slapping the PREFIX and token into their own vars
 client.commands = new Discord.Collection(); // Extends JS's native map class
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // Picks up all the .js files in the commands folder
@@ -29,208 +30,10 @@ client.on("ready", () => {
 
 client.on("message", async (message) => {
 
-	// Special command code
   // If the msg does NOT start with the PREFIX, OR it was sent by the bot itself - STOP
   if (!message.content.startsWith(PREFIX) || message.author.bot) {
-		if (message.author.bot) return; // If message was sent by a Bot, return!
-		if (!message.mentions.everyone && !message.mentions.roles.size && !message.mentions.users.size) return; // If NO mentions, return!
-
-		/********************
-		 * MENTION COUNT MODULE
-		 ********************/
-
-		// Check if User is already in Database or not
-		const pings = await Pings.findOne({ where: { userID: message.author.id } });
-		if(pings) {
-			// Check how many Mentions are in this message AND add that to all_ping_count
-			//console.log(message.mentions);
-			const everyonePing = message.mentions.everyone;
-			const rolePings = message.mentions.roles;
-			const userPings = message.mentions.users;
-			var pingAmount = 0;
-      const oldAllPingAmount = pings.all_ping_count;
-
-			pingAmount += rolePings.size;
-			pingAmount += userPings.size;
-			if (everyonePing) pingAmount += 1;
-
-      const newAllPingAmount = oldAllPingAmount + pingAmount;
-
-      // Update User's Db entry with new amount of Pings
-			const allPings = await Pings.update({ all_ping_count: newAllPingAmount }, { where: { userID: message.author.id } });
-			if(allPings > 0) {
-				// Successful Addition of ALL PINGS
-
-        if(rolePings.size > 0) {
-          const oldRolePingAmount = pings.role_ping_count;
-          const newRolePingAmount = oldRolePingAmount + rolePings.size;
-          const allRolePings = await Pings.update({ role_ping_count: newRolePingAmount }, { where: { userID: message.author.id } });
-          if(allRolePings > 0) {
-            // Successful Addition of ROLE PINGS
-
-            if(userPings.size > 0) {
-              const oldUserPingAmount = pings.user_ping_count;
-              const newUserPingAmount = oldUserPingAmount + userPings.size;
-              const allUserPings = await Pings.update({ user_ping_count: newUserPingAmount }, { where: { userID: message.author.id } });
-              if(allUserPings > 0) {
-                // Successful Addition of USER PINGS
-
-                if(everyonePing) {
-                  const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                  const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                  if(allEveryonePings > 0) {
-                    return;
-                  }
-                  //END OF EVERYONEPING
-                } else {
-                  return;
-                }
-              }
-              //END OF USERPING
-            } else {
-              if(everyonePing) {
-                const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                if(allEveryonePings > 0) {
-                  return;
-                }
-                //END OF EVERYONEPING
-              } else {
-                return;
-              }
-            }
-          }
-          //END OF ROLEPING
-        } else {
-          if(userPings.size > 0) {
-            const oldUserPingAmount = pings.user_ping_count;
-            const newUserPingAmount = oldUserPingAmount + userPings.size;
-            const allUserPings = await Pings.update({ user_ping_count: newUserPingAmount }, { where: { userID: message.author.id } });
-            if(allUserPings > 0) {
-              // Successful Addition of USER PINGS
-
-              if(everyonePing) {
-                const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                if(allEveryonePings > 0) {
-                  return;
-                }
-                //END OF EVERYONEPING
-              } else {
-                return;
-              }
-            }
-            //END OF USERPING
-          } else {
-            if(everyonePing) {
-              const newEveryonePingAmount = pings.everyone_ping_count + 1;
-              const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-              if(allEveryonePings > 0) {
-                return;
-              }
-              //END OF EVERYONEPING
-            } else {
-              return;
-            }
-          }
-        }
-
-			} else {
-        if(rolePings.size > 0) {
-          const oldRolePingAmount = pings.role_ping_count;
-          const newRolePingAmount = oldRolePingAmount + rolePings.size;
-          const allRolePings = await Pings.update({ role_ping_count: newRolePingAmount }, { where: { userID: message.author.id } });
-          if(allRolePings > 0) {
-            // Successful Addition of ROLE PINGS
-
-            if(userPings.size > 0) {
-              const oldUserPingAmount = pings.user_ping_count;
-              const newUserPingAmount = oldUserPingAmount + userPings.size;
-              const allUserPings = await Pings.update({ user_ping_count: newUserPingAmount }, { where: { userID: message.author.id } });
-              if(allUserPings > 0) {
-                // Successful Addition of USER PINGS
-
-                if(everyonePing) {
-                  const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                  const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                  if(allEveryonePings > 0) {
-                    return;
-                  }
-                  //END OF EVERYONEPING
-                } else {
-                  return;
-                }
-              }
-              //END OF USERPING
-            } else {
-              if(everyonePing) {
-                const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                if(allEveryonePings > 0) {
-                  return;
-                }
-                //END OF EVERYONEPING
-              } else {
-                return;
-              }
-            }
-          }
-          //END OF ROLEPING
-        } else {
-          if(userPings.size > 0) {
-            const oldUserPingAmount = pings.user_ping_count;
-            const newUserPingAmount = oldUserPingAmount + userPings.size;
-            const allUserPings = await Pings.update({ user_ping_count: newUserPingAmount }, { where: { userID: message.author.id } });
-            if(allUserPings > 0) {
-              // Successful Addition of USER PINGS
-
-              if(everyonePing) {
-                const newEveryonePingAmount = pings.everyone_ping_count + 1;
-                const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-                if(allEveryonePings > 0) {
-                  return;
-                }
-                //END OF EVERYONEPING
-              } else {
-                return;
-              }
-            }
-            //END OF USERPING
-          } else {
-            if(everyonePing) {
-              const newEveryonePingAmount = pings.everyone_ping_count + 1;
-              const allEveryonePings = await Pings.update({ everyone_ping_count: newEveryonePingAmount }, { where: { userID: message.author.id } });
-              if(allEveryonePings > 0) {
-                return;
-              }
-              //END OF EVERYONEPING
-            } else {
-              return;
-            }
-          }
-        }
-        //END OF ALLPING
-			}
-
-		} else {
-			// User is not in Database - add them!
-			try {
-				const ping = await Pings.create({
-					userID: message.author.id,
-					username: message.author.username,
-				});
-				return;
-			} catch(e) {
-				if (e.name === 'SequelizeUniqueConstraintError') {
-					return console.log(`User ${message.author.username} already exists in this Database! User ID: ${message.author.id}`);
-				}
-				return;
-			}
-			// END OF IF PING
-		}
-		// END OF IF MESSAGE != PREFIX
+		return;
 	};
-
 
   // Slides the PREFIX off the command
   const args = message.content.slice(PREFIX.length).split(/ +/);
@@ -283,6 +86,15 @@ client.on("message", async (message) => {
         reply += `\nThe proper usage would be: \`${PREFIX}${command.name} ${command.usage}\``;
       }
       return message.channel.send(reply);
+  }
+
+  // Check Command's Guild Access
+  if (command.guildAccess === 'private' && message.guild.id != PRIVATE) {
+    console.log('Private Command Attempted in invalid Guild');
+    return message.reply(`Sorry, but that command cannot be used in this Server!\nIt is limited to <@156482326887530498>\'s private server.\n*No, you are not getting access to it*`);
+  } else if (command.guildAccess === 'trusted' && !TRUSTED.includes(message.guild.id)) {
+    console.log('Trusted Command Attempted in invalid Guild');
+    return message.reply(`Sorry, but that command cannot be used in this Server!\nIt is limited to Servers <@156482326887530498> has trusted.`);
   }
 
   // If there is, grab and run that command's execute() function
