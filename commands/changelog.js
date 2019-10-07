@@ -11,10 +11,9 @@ module.exports = {
     execute(message) {
       const updateEmbed = new Discord.MessageEmbed().setColor('#370bb3').setFooter('Changelog');
 
-      updateEmbed.setTitle(`Version 1.7.0`);
-      updateEmbed.setDescription(`Released 6th October 2019`);
-      updateEmbed.addField(`Changes to all commands`, `All the commands now have a hard-coded check to see what Server they were used in.\nThis is so I can limit some commands to Trusted Servers only!`);
-      updateEmbed.addField(`Removed Mentions Command & Module`, `It was broken and I\'m still learning Databases`);
+      updateEmbed.setTitle(`Version 1.7.1`);
+      updateEmbed.setDescription(`Released 7th October 2019`);
+      updateEmbed.addField(`Add more functionality to Light Command`, `It is now possible to change my smart light\'s brightness.\nChanging the colour is still in the works, it\'s a little buggy at the moment...`);
 
       return message.channel.send(updateEmbed);
 

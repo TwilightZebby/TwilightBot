@@ -20,7 +20,6 @@ for (const file of commandFiles) { // Slaps all the command files into the Colle
 
 // To make sure the bot is up and running
 client.on("ready", () => {
-  Pings.sync(); // Force-syncs the Db Table to ensure it is up to date
   console.log("I am ready!");
   client.user.setActivity(`${PREFIX}help`); // Sets a Playing Status on the Bot
 });
