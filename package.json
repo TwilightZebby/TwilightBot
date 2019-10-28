@@ -1,6 +1,6 @@
 {
   "name": "TwilightBot",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "A small Discord bot I made.",
   "main": "index.js",
   "dependencies": {
@@ -8,12 +8,14 @@
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
+    "ffmpeg-binaries": "^4.0.0",
     "install": "^0.13.0",
     "kasa_control": "^0.1.0",
     "libsodium-wrappers": "^0.7.5",
     "lodash": "^4.17.15",
     "sequelize": "^5.16.0",
     "sqlite3": "^4.1.0",
+    "ytdl-core-discord": "github:amishshah/ytdl-core-discord",
     "zlib-sync": "^0.1.5",
     "zucc": "^0.1.2"
   },

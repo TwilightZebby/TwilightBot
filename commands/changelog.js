@@ -11,9 +11,10 @@ module.exports = {
     execute(message) {
       const updateEmbed = new Discord.MessageEmbed().setColor('#370bb3').setFooter('Changelog');
 
-      updateEmbed.setTitle(`Version 1.7.1`);
-      updateEmbed.setDescription(`Released 7th October 2019`);
-      updateEmbed.addField(`Add more functionality to Light Command`, `It is now possible to change my smart light\'s brightness.\nChanging the colour is still in the works, it\'s a little buggy at the moment...`);
+      updateEmbed.setTitle(`Version 1.8.0`);
+      updateEmbed.setDescription(`Released 28th October 2019`);
+      updateEmbed.addField(`Added Music Module`, `Because YouTube is blocking the bigger Discord Music Bots\nI do plan on adding support for Spotify!`);
+      updateEmbed.addField(`Tweaked Annoy Command`, `Minimum time is now 5 minutes instead of 1, and now pings every 30 seconds instead of every minute.`);
 
       return message.channel.send(updateEmbed);
 

@@ -57,10 +57,10 @@ module.exports = {
         message.delete(); // To help hide who ran the command :P
 
         // To randomise how long Victim should be pinged for
-        // Between 1 and 20 minutes
+        // Between 5 and 20 minutes
         var pingAnnoyAmount = 0;
-        pingAnnoyAmount = Math.floor((Math.random() * 20) + 1);
-        pingAnnoyTime = pingAnnoyAmount * 60000;
+        pingAnnoyAmount = Math.floor((Math.random() * 25) + 5);
+        pingAnnoyTime = pingAnnoyAmount * 30000;
 
         function annoyWithPings() {
           unluckyUser.send(`Here\'s your ping! ${unluckyUser}`);
@@ -71,7 +71,7 @@ module.exports = {
         unluckyUser.send(`Here\'s your ping! ${unluckyUser}`);
 
         for (let i = 0; i < pingAnnoyAmount; i++) {
-          await sleep(60000);
+          await sleep(30000);
           annoyWithPings();
         }
 

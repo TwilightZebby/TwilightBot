@@ -1,6 +1,11 @@
 # For security
 config.js
 database.sqlite
+
 # For tidyness
-/images
+/helpful_stuff
 /node_modules
+/.vs
+
+# To hide my plans :P
+TODO.md
