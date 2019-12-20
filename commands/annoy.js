@@ -57,7 +57,7 @@ module.exports = {
         message.delete(); // To help hide who ran the command :P
 
         // To randomise how long Victim should be pinged for
-        // Between 5 and 20 minutes
+        // Between 5 and 25 minutes
         var pingAnnoyAmount = 0;
         pingAnnoyAmount = Math.floor((Math.random() * 25) + 5);
         pingAnnoyTime = pingAnnoyAmount * 30000;
