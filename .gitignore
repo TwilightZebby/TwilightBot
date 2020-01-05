@@ -1,6 +1,7 @@
 # For security
 config.js
 database.sqlite
+/bot_modules
 
 # For tidyness
 /helpful_stuff
