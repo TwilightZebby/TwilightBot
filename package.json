@@ -10,7 +10,7 @@
     "erlpack": "github:discordapp/erlpack",
     "ffmpeg-binaries": "^4.0.0",
     "install": "^0.13.0",
-    "kasa_control": "^0.1.0",
+    "kasa_control": "github:konsumer/kasa_control",
     "libsodium-wrappers": "^0.7.6",
     "lodash": "^4.17.15",
     "sequelize": "^5.16.0",
