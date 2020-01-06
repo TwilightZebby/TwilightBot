@@ -14,7 +14,7 @@
     "libsodium-wrappers": "^0.7.6",
     "lodash": "^4.17.15",
     "sequelize": "^5.16.0",
-    "sqlite3": "^4.1.0",
+    "sqlite3": "^4.1.1",
     "utf-8-validate": "^5.0.2",
     "ytdl-core-discord": "github:amishshah/ytdl-core-discord",
     "zlib-sync": "^0.1.6",

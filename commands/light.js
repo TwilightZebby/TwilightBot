@@ -6,7 +6,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'light',
     description: 'Control my Smart Light Bulb.',
-    usage: 'colour|color|c <#hexColourValue>\nbrightness|b <percentage>',
+    usage: `brightness|b <percentage>\n hue|h <number (0 - 360)>\n saturation|s <number (0 - 100)>\n colour|color|c <colour|list>`,
     args: true,
     aliases: ['bulb', 'l'],
     commandType: 'general',
@@ -14,16 +14,22 @@ module.exports = {
     cooldown: 10,
     async execute(message, args) {
       await kasa.login(KASAEMAIL, KASAPASSWORD);
-      const request = args.shift();
+      const request = args.shift().toLowerCase();
 
       // Just in case command is used outside my private Guild
       if(message.author.id != '156482326887530498') {
         return message.reply(`Sorry, but that command can only be used by <@156482326887530498>`)
       }
 
+
+
+
+
+
+
       // FOR TURNING LIGHT ON
       if(request === 'on') {
-        kasa.power(LIGHTID, true)
+        await kasa.power(LIGHTID, true)
          .then(status => {
            return message.reply(`Successfully turned on Zebby's light!`);
          })
@@ -31,28 +37,154 @@ module.exports = {
       }
       // FOR TURNING LIGHT OFF
       else if(request === 'off') {
-        kasa.power(LIGHTID, false)
+        await kasa.power(LIGHTID, false)
          .then(status => {
           return message.reply(`Successfully turned off Zebby's light!`);
          })
          .catch(err => console.error(err));
       }
-      // FOR CHANGING LIGHT COLOUR
-      // Currently broken
-      // Neither 'hue' nor 'saturation' works.
-      // 'color_temp' isn't what I want before ye all remind me of that one
-      else if(request === 'colour' || request === 'color' || request === 'c') {
+      // FOR GRABBING CURRENT INFO ABOUT THE BULB
+      else if (request === 'info') {
+        await kasa.info(LIGHTID)
+         .then(info => {
+           message.reply(`Bulb info has been dumped into the Console.`);
+           return console.log(info);
+         })
+         .catch(error => {
+           console.log(error);
+           return message.reply(`Sorry, something went wrong!`);
+         })
+      }
+
+
+
+
+
+
+
+      // FOR CHANGING LIGHT HUE
+      else if(request === 'hue' || request === 'h') {
         if(args.length != 1) {
-          return message.reply(`Hmmm, you seem to be missing the hex colour code!`);
+          return message.reply(`Hmmm, you seem to be missing the Hue value!`);
         }
 
-        const colourValue = args.shift();
-        kasa.power(LIGHTID, true, { saturation: colourValue } )
+        var hueValue = null;
+        // Error Checking
+        try {
+          hueValue = parseInt(args.shift());
+        } catch(err) {
+          console.error(err);
+          return message.reply(`Hmmm, something went wrong.\nMaybe try \*actually\* using a number?`);
+        }
+        
+        // Ensure value is between 0 - 360
+        if (hueValue > 360 || hueValue < 0) {
+          return message.reply(`Sorry, but that value wasn't accepted.\nPlease try again using a Hue value between 0 and 360.`);
+        }
+
+        await kasa.power(LIGHTID, true, 1, { hue: hueValue } )
          .then(status => {
-           return message.reply(`Successfully changed Zebby's light colour to \#${colourValue}`);
+           return message.reply(`Successfully changed Zebby's light hue to ${hueValue}`);
          })
          .catch(err => console.error(err));
       }
+
+
+
+
+
+      // FOR CHANGING LIGHT SATURATION
+      else if(request === 'saturation' || request === 's') {
+        if(args.length != 1) {
+          return message.reply(`Hmmm, you seem to be missing the Saturation value!`);
+        }
+
+        var satValue = null;
+        // Error Checking
+        try {
+          satValue = parseInt(args.shift());
+        } catch(err) {
+          console.error(err);
+          return message.reply(`Hmmm, something went wrong.\nMaybe try \*actually\* using a number?`);
+        }
+        
+        // Ensure value is between 0 - 360
+        if (satValue > 100 || satValue < 0) {
+          return message.reply(`Sorry, but that value wasn't accepted.\nPlease try again using a Hue value between 0 and 360.`);
+        }
+
+        await kasa.power(LIGHTID, true, 1, { saturation: satValue } )
+         .then(status => {
+           return message.reply(`Successfully changed Zebby's light saturation to ${satValue}`);
+         })
+         .catch(err => console.error(err));
+      }
+
+
+
+
+
+
+      // FOR CHANGING LIGHT COLOUR
+      else if(request === 'colour' || request === 'color' || request === 'c') {
+        if(args.length != 1) {
+          return message.reply(`Hmmm, you seem to be missing the colour name!\nUse \`${PREFIX}light ${request} list\` to see what pre-set colours are available`);
+        }
+
+        var colourValue = args.shift().toLowerCase();
+        const colourOptions = ['list', 'purple', 'red', 'lime'];
+        
+        // Ensure value is a pre-set option
+        if (!colourOptions.includes(colourValue)) {
+          return message.reply(`Sorry, that isn't a pre-set colour option yet!`);
+        }
+
+        // LIST
+        if (colourValue === 'list') {
+          return message.channel.send(`Here is a list of all the pre-set colours:\n
+          blue, red, lime`);
+        }
+        // BLUE
+        else if (colourValue === 'purple') {
+          await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 250 } )
+         .then(status => {
+           return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+         })
+         .catch(err => console.error(err));
+        }
+        // RED
+        else if (colourValue === 'red') {
+          await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 360 } )
+         .then(status => {
+           return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+         })
+         .catch(err => console.error(err));
+        }
+        // LIME
+        else if (colourValue === 'lime') {
+          await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 150 } )
+         .then(status => {
+           return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+         })
+         .catch(err => console.error(err));
+        }
+        // OTHERWISE
+        else {
+          return message.reply(`Welp, something went wrong. Maybe try again?`);
+        }
+
+        /*await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 250 } )
+         .then(status => {
+           return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+         })
+         .catch(err => console.error(err));*/
+      }
+
+
+
+
+
+
       // FOR CHANGING LIGHT BRIGHTNESS
       else if(request === 'brightness' || request === 'b') {
         if(args.length != 1) {
@@ -70,7 +202,7 @@ module.exports = {
         if(brightnessValue < 1 || brightnessValue > 100) {
           message.reply(`Sorry, but you need to use a value between 1 and 100.`);
         }
-        kasa.power(LIGHTID, true, { brightness: brightnessValue } )
+        await kasa.power(LIGHTID, true, 1, { brightness: brightnessValue } )
          .then(status => {
            return message.reply(`Successfully changed Zebby's light brightness to ${brightnessValue}\%`);
          })
