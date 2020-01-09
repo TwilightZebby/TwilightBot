@@ -1,9 +1,7 @@
 // Creating the veraibles needed
 const fs = require('fs'); // Node's native file system
 const Discord = require("discord.js"); // Bringing in Discord.js
-const Sequelize = require('sequelize'); // Brings in Sequelize - used for Database stuff
-const { client, sequelize } = require('./bot_modules/constants.js'); // Brings in the Discord Bot's Client and Sequelize Database
-const { Pings } = require('./bot_modules/tables.js'); // Brings in the Sequelize Db table
+const { client } = require('./bot_modules/constants.js'); // Brings in the Discord Bot's Client and Sequelize Database
 const { PRIVATE, TRUSTED } = require('./bot_modules/guilds.js'); // Used for checking Command Access Perms per Guild
 const { PREFIX, TOKEN } = require('./config.js'); // Slapping the PREFIX and token into their own vars
 client.commands = new Discord.Collection(); // Extends JS's native map class
@@ -18,11 +16,20 @@ for (const file of commandFiles) { // Slaps all the command files into the Colle
     client.commands.set(command.name, command);
 }
 
+
+
+
+
 // To make sure the bot is up and running
 client.on("ready", () => {
   console.log("I am ready!");
   client.user.setActivity(`${PREFIX}help`); // Sets a Playing Status on the Bot
 });
+
+
+
+
+
 /***********************************************/
 /*THE COMMANDS*/
 /*Runs whenever a message is sent in a command the Bot has access to*/
