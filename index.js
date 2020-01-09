@@ -31,6 +31,79 @@ client.on("ready", () => {
 
 
 /***********************************************/
+/*Voice Channel Stuff*/
+/*Runs whenever Bot detects someone joining/leaving a VC*/
+client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
+
+
+  // FUNCTIONS
+  //    Function for revoking a Member "Read Messages" Permission for a Text Channel
+  function RevokePermission(memberObject, textChannelID, guildObject) {
+
+    const channel = guildObject.channels.get(textChannelID);
+    channel.createOverwrite(memberObject, {
+      VIEW_CHANNEL: false,
+    }).catch(error => console.error(error));
+
+  }
+
+  //    Function for granting a Member "Read Messages" Permission for a Text Channel
+  function GrantPermission(memberObject, textChannelID, guildObject) {
+
+    const channel = guildObject.channels.get(textChannelID);
+    channel.createOverwrite(memberObject, {
+      VIEW_CHANNEL: true,
+    }).catch(error => console.error(error));
+
+  }
+  
+
+
+  // WHEN USER LEAVES A VOICE CHANNEL
+  if ( (oldVoiceState.channelID !== undefined || oldVoiceState.channelID !== null) && (newVoiceState.channelID === undefined || newVoiceState.channelID === null) ) {
+
+
+    const member = newVoiceState.member;
+
+    // FOR MY PRIVATE SERVER
+    if (member.guild.id === '264091258035634176') {
+      RevokePermission(member, '664911349243183104', member.guild);
+    }
+
+    // FOR MY CLOSE FRIENDS SERVER
+    if (member.guild.id === '156482432902758400') {
+      RevokePermission(member, '618520093558571018', member.guild);
+    }
+
+
+
+  } 
+  
+  // WHEN USER JOINS A VOICE CHANNEL
+  if ( (oldVoiceState.channelID === undefined || oldVoiceState.channelID === null) && (newVoiceState.channelID !== undefined || newVoiceState.channelID !== null) ) {
+
+
+    const member = oldVoiceState.member;
+
+    // FOR MY PRIVATE SERVER
+    if (member.guild.id === '264091258035634176') {
+      GrantPermission(member, '664911349243183104', member.guild);
+    }
+
+    // FOR MY CLOSE FRIENDS SERVER
+    if (member.guild.id === '156482432902758400') {
+      GrantPermission(member, '618520093558571018', member.guild);
+    }
+
+
+  }
+
+});
+
+
+
+
+/***********************************************/
 /*THE COMMANDS*/
 /*Runs whenever a message is sent in a command the Bot has access to*/
 
