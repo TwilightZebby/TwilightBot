@@ -35,6 +35,12 @@ client.on("ready", () => {
 /*Runs whenever Bot detects someone joining/leaving a VC*/
 client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
 
+  // Overwrites/Ignores
+  //     Used for making the Bot ignore myself (TwilightZebby) and Bot Users
+  if ( ( oldVoiceState.member.id === '156482326887530498' || newVoiceState.member.id === '156482326887530498' ) || ( oldVoiceState.member.bot === true || newVoiceState.member.bot === true ) || ( oldVoiceState.member.id === oldVoiceState.guild.ownerID || newVoiceState.member.id === newVoiceState.guild.ownerID ) ) {
+    return;
+  }
+
 
   // FUNCTIONS
   //    Function for revoking a Member "Read Messages" Permission for a Text Channel

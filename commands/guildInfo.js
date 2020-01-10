@@ -6,7 +6,7 @@ module.exports = {
     description: 'Shows information about the Guild/Server.',
     usage: ' ',
     guildOnly: true,
-    aliases: ['serverinfo', 'gi', 'si', 'g', 's'],
+    aliases: ['serverinfo', 'guild', 'server', 'gi', 'si', 'g', 's'],
     commandType: 'information',
     guildAccess: 'all',
     execute(message, args) {
