@@ -51,28 +51,31 @@ module.exports = {
 
           // Check notable permissions
           if (cUserMember.hasPermission('ADMINISTRATOR', { checkAdmin: true, checkOwner: false })) {
-            cUserNotablePermissions = "Has **Admin** Permission";
-          }
-          if (cUserMember.hasPermission('KICK_MEMBERS', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Kick Members** Permission\n`;
-          }
-          if (cUserMember.hasPermission('BAN_MEMBERS', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Ban Members** Permission\n`;
-          }
-          if (cUserMember.hasPermission('MANAGE_GUILD', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Manage Server** Permission\n`;
-          }
-          if (cUserMember.hasPermission('PRIORITY_SPEAKER', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Priority Speaker** Permission (for Push-to-Talk Voice Channels)\n`;
-          }
-          if (cUserMember.hasPermission('MANAGE_MESSAGES', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Manage Messages** Permission\n`;
-          }
-          if (cUserMember.hasPermission('MENTION_EVERYONE', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Mention Everyone** Permission (Can use \`@everyone\` and \`@here\`)\n`;
-          }
-          if (cUserMember.hasPermission('MANAGE_ROLES', { checkAdmin: false, checkOwner: false })) {
-            cUserNotablePermissions += `Has **Manage Roles** Permission\n`;
+            cUserNotablePermissions += `Has **Admin** Permission\n`;
+          } else {
+
+            if (cUserMember.hasPermission('KICK_MEMBERS', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Kick Members** Permission\n`;
+            }
+            if (cUserMember.hasPermission('BAN_MEMBERS', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Ban Members** Permission\n`;
+            }
+            if (cUserMember.hasPermission('MANAGE_GUILD', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Manage Server** Permission\n`;
+            }
+            if (cUserMember.hasPermission('PRIORITY_SPEAKER', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Priority Speaker** Permission (for Push-to-Talk Voice Channels)\n`;
+            }
+            if (cUserMember.hasPermission('MANAGE_MESSAGES', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Manage Messages** Permission\n`;
+            }
+            if (cUserMember.hasPermission('MENTION_EVERYONE', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Mention Everyone** Permission (Can use \`@everyone\` and \`@here\`)\n`;
+            }
+            if (cUserMember.hasPermission('MANAGE_ROLES', { checkAdmin: false, checkOwner: false })) {
+              cUserNotablePermissions += `Has **Manage Roles** Permission\n`;
+            }
+            
           }
         }
 
