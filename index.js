@@ -31,6 +31,40 @@ client.on("ready", () => {
 
 
 /***********************************************/
+// Birthday Role stuff
+// Just for my private server with my IRL friends
+// Yes, we have a Birthday Role lol
+client.on('guildMemberUpdate', (oldMember, newMember) => {
+
+  // First, ensure this is the correct Server
+  if ( oldMember.guild.id !== '156482432902758400' || newMember.guild.id !== '156482432902758400' ) {
+    return;
+  }
+  // Next, ignore any Bot Users
+  if ( oldMember.user.bot || newMember.user.bot ) {
+    return;
+  }
+
+  // Now, check for the highest Role and see if that is the Birthday Role!
+  const birthdayRole = newMember.guild.roles.get('286566932629422084'); // Grab the Role Object
+  const announceChannel = newMember.guild.channels.get('650250748411641856'); // Grab the Channel to announce in!
+
+  if ( newMember.roles.highest === birthdayRole ) {
+    
+    const roleEmbed = new Discord.MessageEmbed().setColor(birthdayRole.hexColor).setFooter(`IT'S ${newMember.displayName}'S BIRTHDAY YO`);
+
+    roleEmbed.addField(`It's a Birthday! 🎉`, `Hey, it's ${newMember}'s Birthday today!\n\n${newMember} - you can use the Role Command to change the name and colour of ${birthdayRole}!\n\nUse \`${PREFIX}help role\` to see how`);
+    announceChannel.send(roleEmbed);
+
+  }
+
+});
+
+
+
+
+
+/***********************************************/
 /*Voice Channel Stuff*/
 /*Runs whenever Bot detects someone joining/leaving a VC*/
 client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {

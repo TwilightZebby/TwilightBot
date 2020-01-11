@@ -1,6 +1,6 @@
 {
   "name": "twilightbot",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A Small Bot I made for myself",
   "main": "index.js",
   "dependencies": {
