@@ -47,7 +47,7 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
 
   // Now, check for the highest Role and see if that is the Birthday Role!
   const birthdayRole = newMember.guild.roles.get('286566932629422084'); // Grab the Role Object
-  const announceChannel = newMember.guild.channels.get('650250748411641856'); // Grab the Channel to announce in!
+  const announceChannel = newMember.guild.channels.get('156482432902758400'); // Grab the Channel to announce in!
 
   if ( newMember.roles.highest === birthdayRole ) {
     
