@@ -8,5 +8,8 @@ database.sqlite
 /node_modules
 /.vs
 
+# Hiding incomplete stuff
+/commands/birthdayRole.js
+
 # To hide my plans :P
 TODO.md

@@ -19,12 +19,18 @@ module.exports = {
       const guildRegion = thisGuild.region;
       const guildOwner = thisGuild.owner;
       const guildCreationDate = thisGuild.createdAt.toDateString();
+
       const guildBoostTier = thisGuild.premiumTier;
       const guildChannelAmount = thisGuild.channels.array().length;
       const guildMemberAmount = thisGuild.memberCount;
+
+      const guildPartnered = thisGuild.partnered;
+      const guildVerified = thisGuild.verified;
+
+
       // SPECIFIC GUILD INFO
-      //const guildNonBotMembers = thisGuild.members.array().filter(user => user.bot === false);
-      //const guildNBMemberAmount = guildNonBotMembers.length;
+      const guildNonBotMembers = thisGuild.members.array().filter(member => { return !member.user.bot; });
+      const guildNBMemberAmount = guildNonBotMembers.length;
 
       var guildEmojis = thisGuild.emojis.array();
       var guildEmojiAmount = null;
@@ -34,16 +40,23 @@ module.exports = {
       if(guildRoleAmount === undefined) { guildRoleAmount = null; }
 
 
+
+      
       // EMBED TIME!
       guildEmbed.setTitle(guildName);
       guildEmbed.setDescription(`Guild Owner: ${guildOwner}`);
       guildEmbed.setThumbnail(guildIconURL);
+
       guildEmbed.addField(`Server Region`, `${guildRegion}`, true);
       guildEmbed.addField(`Date Created`, `${guildCreationDate}`, true);
       guildEmbed.addField(`Boost Tier (Level)`, `${guildBoostTier}`, true);
+
+      guildEmbed.addField(`Is Verified?`, `${guildVerified}`, true);
+      guildEmbed.addField(`Is Partnered?`, `${guildPartnered}`, true);
+
       guildEmbed.addField(`Channel Amount`, `${guildChannelAmount}`, true);
       guildEmbed.addField(`Member Amount (inc. Bots)`, `${guildMemberAmount}`, true);
-      //guildEmbed.addField(`Member Amount (No Bots)`, `${guildNBMemberAmount}`, true);
+      guildEmbed.addField(`Member Amount (No Bots)`, `${guildNBMemberAmount}`, true);
       if(guildEmojis != undefined) { guildEmbed.addField(`Emoji Amount`, `${guildEmojiAmount}`, true); }
       if(guildRoleAmount != undefined) { guildEmbed.addField(`Role Amount`, `${guildRoleAmount}`, true); }
 
