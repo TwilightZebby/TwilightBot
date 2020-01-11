@@ -21,7 +21,15 @@ module.exports = {
       const guildCreationDate = thisGuild.createdAt.toDateString();
 
       const guildBoostTier = thisGuild.premiumTier;
-      const guildChannelAmount = thisGuild.channels.array().length;
+
+      const guildChannelAmount = thisGuild.channels.array().filter(channel => {
+        if (channel.type === 'category') {
+          return false;
+        } else {
+          return true;
+        }
+      }).length;
+
       const guildMemberAmount = thisGuild.memberCount;
 
       const guildPartnered = thisGuild.partnered;
