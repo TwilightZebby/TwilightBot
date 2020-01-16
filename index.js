@@ -31,6 +31,48 @@ client.on("ready", () => {
 
 
 /***********************************************/
+// Bot Logging lol
+client.on('messageDelete', message => {
+
+  // To only log my private server lol
+  if ( message.guild.id !== '156482432902758400' ) {
+    return;
+  }
+  // To stop catching Bot Messages - it'll get spammy otherwise!
+  if ( message.author.bot === true ) {
+    return;
+  }
+
+  const logEmbed = new Discord.MessageEmbed().setColor('#bd0bb1').setFooter(`Log Module`);
+  const logChannel = message.guild.channels.get('666992396348817409'); // Grab the Channel to log stuff in
+  // Grab the message contents and information
+  const msgDisplayName = message.member.displayName;
+  const msgChannelID = message.channel.id;
+  const msgContent = message.content;
+  const msgSentDate = message.createdAt.toDateString();
+  const msgAttachments = message.attachments;
+
+  // Slap above data into Embed
+  logEmbed.addField(`Message Deleted`, `${msgContent}`);
+  logEmbed.addField(`Date message was sent:`, `${msgSentDate}`);
+  logEmbed.addField(`Channel sent in:`, `\<\#${msgChannelID}\>`);
+  logEmbed.addField(`Message Author:`, `${msgDisplayName} - ${message.author}`);
+  if ( msgAttachments.size > 0 ) {
+    logEmbed.addField(`Message Attachment:`, `[Unavailable]`);
+    //logEmbed.setImage(msgAttachments.url);
+  }
+
+  // SEND
+  return logChannel.send(logEmbed);
+
+});
+
+
+
+
+
+
+/***********************************************/
 // Birthday Role stuff
 // Just for my private server with my IRL friends
 // Yes, we have a Birthday Role lol
@@ -209,11 +251,15 @@ client.on("message", async (message) => {
 
   // Check Command's Guild Access
   if (command.guildAccess === 'private' && message.guild.id != PRIVATE) {
+
     console.log('Private Command Attempted in invalid Guild');
     return message.reply(`Sorry, but that command cannot be used in this Server!\nIt is limited to <@156482326887530498>\'s private server.\n*No, you are not getting access to it*`);
+  
   } else if (command.guildAccess === 'trusted' && !TRUSTED.includes(message.guild.id)) {
+
     console.log('Trusted Command Attempted in invalid Guild');
     return message.reply(`Sorry, but that command cannot be used in this Server!\nIt is limited to Servers <@156482326887530498> has trusted.`);
+  
   }
 
   // If there is, grab and run that command's execute() function

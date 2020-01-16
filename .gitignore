@@ -2,6 +2,7 @@
 config.js
 database.sqlite
 /bot_modules
+/dataStores
 
 # For tidyness
 /helpful_stuff
