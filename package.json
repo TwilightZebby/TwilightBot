@@ -1,13 +1,13 @@
 {
   "name": "twilightbot",
-  "version": "2.2.0",
-  "description": "A Small Bot I made for myself",
+  "version": "2.2.1",
+  "description": "A Small Discord bot made by TwilightZebby for himself",
   "main": "index.js",
   "dependencies": {
     "bufferutil": "^4.0.1",
-    "discord.js": "^12.0.0-dev",
+    "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
-    "kasa_control": "^0.1.0",
+    "kasa_control": "github:konsumer/kasa_control",
     "libsodium-wrappers": "^0.7.6",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
@@ -20,12 +20,6 @@
     "type": "git",
     "url": "git+https://github.com/TwilightZebby/TwilightBot.git"
   },
-  "keywords": [
-    "discord.js",
-    "nodejs",
-    "discord",
-    "javascript"
-  ],
   "author": "TwilightZebby",
   "license": "ISC",
   "bugs": {
