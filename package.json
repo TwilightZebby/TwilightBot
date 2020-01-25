@@ -7,7 +7,6 @@
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
-    "kasa_control": "github:konsumer/kasa_control",
     "libsodium-wrappers": "^0.7.6",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"

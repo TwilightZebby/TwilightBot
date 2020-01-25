@@ -91,7 +91,7 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
   const birthdayRole = newMember.guild.roles.get('286566932629422084'); // Grab the Role Object
   const announceChannel = newMember.guild.channels.get('156482432902758400'); // Grab the Channel to announce in!
 
-  if ( newMember.roles.highest === birthdayRole ) {
+  if ( ( newMember.roles.highest === birthdayRole ) && ( oldMember.roles.highest !== birthdayRole ) ) {
     
     const roleEmbed = new Discord.MessageEmbed().setColor(birthdayRole.hexColor).setFooter(`IT'S ${newMember.displayName}'S BIRTHDAY YO`);
 
