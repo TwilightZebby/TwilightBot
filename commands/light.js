@@ -10,7 +10,7 @@ module.exports = {
     args: true,
     aliases: ['bulb', 'l'],
     commandType: 'general',
-    guildAccess: 'private',
+    guildAccess: 'trusted',
     cooldown: 10,
     async execute(message, args) {
       await kasa.login(KASAEMAIL, KASAPASSWORD);
