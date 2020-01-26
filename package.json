@@ -1,12 +1,14 @@
 {
   "name": "twilightbot",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "A Small Discord bot made by TwilightZebby for himself",
   "main": "index.js",
   "dependencies": {
     "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
+    "fs": "0.0.1-security",
+    "kasa_control": "^0.1.0",
     "libsodium-wrappers": "^0.7.6",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
