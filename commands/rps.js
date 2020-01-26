@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'rps',
     description: 'Play Rock Paper Scissors with the Bot!',
-    usage: 'rock/paper/scissors',
+    usage: '<rock|r|paper|p|scissors|s>',
     aliases: ['rockpaperscissors'],
     commandType: 'fun',
     args: true,

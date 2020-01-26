@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'userinfo',
     description: 'Shows information about a mentioned User.',
-    usage: '@user',
+    usage: '<@user>',
     args: true,
     aliases: ['user', 'ui', 'u'],
     commandType: 'information',

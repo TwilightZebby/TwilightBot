@@ -16,9 +16,11 @@ module.exports = {
       // Private Server
       if (message.guild.id === PRIVATE && !args.length) {
         helpEmbed.setTitle('Here is a list of all my commands:');
-        helpEmbed.setDescription('Private Commands: Shown\nTrusted Commands: Shown');
+        helpEmbed.setDescription(`< > means that is required.\n[] means that is optional.\n| means either/or.`);
+
+        helpEmbed.addField('\u200B', 'Private Commands: Shown\nTrusted Commands: Shown');
         //helpEmbed.addField('\u200B', commands.map(command => command.name).join(', '));
-        //GENERAL COMMANDS
+
         helpEmbed.addField(`General Commands`, commands.filter(command => command.commandType === 'general').map(command => command.name).join(', '));
         helpEmbed.addField(`Informational Commands`, commands.filter(command => command.commandType === 'information').map(command => command.name).join(', '));
         helpEmbed.addField(`Management Commands`, commands.filter(command => command.commandType === 'management').map(command => command.name).join(', '));
@@ -30,9 +32,11 @@ module.exports = {
       // Trusted Servers
       else if (TRUSTED.includes(message.guild.id) && !args.length) {
         helpEmbed.setTitle('Here is a list of all my commands:');
-        helpEmbed.setDescription('Trusted Commands: Shown');
+        helpEmbed.setDescription(`< > means that is required.\n[] means that is optional.\n| means either/or.`);
+
+        helpEmbed.addField('\u200B', 'Trusted Commands: Shown');
         //helpEmbed.addField('\u200B', commands.map(command => command.name).join(', '));
-        //GENERAL COMMANDS
+
         helpEmbed.addField(`General Commands`, commands.filter(command => command.commandType === 'general' && command.guildAccess != 'private').map(command => command.name).join(', '));
         helpEmbed.addField(`Informational Commands`, commands.filter(command => command.commandType === 'information' && command.guildAccess != 'private').map(command => command.name).join(', '));
         helpEmbed.addField(`Management Commands`, commands.filter(command => command.commandType === 'management' && command.guildAccess != 'private').map(command => command.name).join(', '));
@@ -44,8 +48,10 @@ module.exports = {
       // Other Servers
       else if (!args.length) {
         helpEmbed.setTitle('Here is a list of all my commands:');
+        helpEmbed.setDescription(`< > means that is required.\n[] means that is optional.\n| means either/or.`);
+        
         //helpEmbed.addField('\u200B', commands.map(command => command.name).join(', '));
-        //GENERAL COMMANDS
+
         helpEmbed.addField(`General Commands`, commands.filter(command => command.commandType === 'general' && command.guildAccess != 'private' && command.guildAccess != 'trusted').map(command => command.name).join(', '));
         helpEmbed.addField(`Informational Commands`, commands.filter(command => command.commandType === 'information' && command.guildAccess != 'private' && command.guildAccess != 'trusted').map(command => command.name).join(', '));
         helpEmbed.addField(`Management Commands`, commands.filter(command => command.commandType === 'management' && command.guildAccess != 'private' && command.guildAccess != 'trusted').map(command => command.name).join(', '));

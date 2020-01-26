@@ -1,7 +1,7 @@
 module.exports = {
     name: 'purge',
     description: 'Purge, or bulk-delete, multiple messages',
-    usage: '[Amount of Messages]',
+    usage: '<Amount of Messages>',
     args: true,
     commandType: 'management',
     guildAccess: 'trusted',

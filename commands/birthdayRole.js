@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'role',
     description: `Use to edit the Birthday Role (If you have it)\nUse \`colour list\` to see a full list of pre-set colour options`,
-    usage: `name|n <newName>\ncolour|c <#hexCode>|<colourName>|list`,
+    usage: `name|n <newName>\ncolour|c <#hexCode|colourName|list>`,
     aliases: ['r'],
     args: true,
     commandType: 'management',

@@ -6,7 +6,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: 'light',
     description: 'Control my Smart Light Bulb.',
-    usage: `brightness|b <percentage>\n hue|h <number (0 - 360)>\n saturation|s <number (0 - 100)>\n colour|color|c <colour|list>`,
+    usage: `brightness|b <percentage>\n hue|h <number (0 - 360)>\n saturation|s <number (0 - 100)>\n colour|color|c <colour|list>\n on|off`,
     args: true,
     aliases: ['bulb', 'l'],
     commandType: 'general',

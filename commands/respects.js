@@ -1,7 +1,7 @@
 module.exports = {
     name: 'respects',
     description: 'Pay your respects. Can be used with or without a User Mention',
-    usage: '<@user>',
+    usage: '<@user|string>',
     aliases: ['respect', 'r', 'f'],
     commandType: 'general',
     args: true,
