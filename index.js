@@ -30,42 +30,11 @@ client.on("ready", () => {
 
 
 
-/***********************************************/
-// Bot Logging lol
-client.on('messageDelete', message => {
 
-  // To only log my private server lol
-  if ( message.guild.id !== '156482432902758400' ) {
-    return;
-  }
-  // To stop catching Bot Messages - it'll get spammy otherwise!
-  if ( message.author.bot === true ) {
-    return;
-  }
 
-  const logEmbed = new Discord.MessageEmbed().setColor('#bd0bb1').setFooter(`Log Module`);
-  const logChannel = message.guild.channels.get('666992396348817409'); // Grab the Channel to log stuff in
-  // Grab the message contents and information
-  const msgDisplayName = message.member.displayName;
-  const msgChannelID = message.channel.id;
-  const msgContent = message.content;
-  const msgSentDate = message.createdAt.toDateString();
-  const msgAttachments = message.attachments;
 
-  // Slap above data into Embed
-  logEmbed.addField(`Message Deleted`, `${msgContent}`);
-  logEmbed.addField(`Date message was sent:`, `${msgSentDate}`);
-  logEmbed.addField(`Channel sent in:`, `\<\#${msgChannelID}\>`);
-  logEmbed.addField(`Message Author:`, `${msgDisplayName} - ${message.author}`);
-  if ( msgAttachments.size > 0 ) {
-    logEmbed.addField(`Message Attachment:`, `[Unavailable]`);
-    //logEmbed.setImage(msgAttachments.url);
-  }
 
-  // SEND
-  return logChannel.send(logEmbed);
 
-});
 
 
 
@@ -181,6 +150,15 @@ client.on('voiceStateUpdate', (oldVoiceState, newVoiceState) => {
   }
 
 });
+
+
+
+
+
+
+
+
+
 
 
 
