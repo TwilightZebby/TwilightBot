@@ -17,7 +17,7 @@ module.exports = {
       const birthdayRole = message.guild.roles.get('286566932629422084');
 
       // Check Member has the Birthday Role
-      if (message.member.roles.highest.id !== '286566932629422084' && message.member.id !== '156482326887530498') {
+      if (message.member.roles.highest.id !== '286566932629422084' || message.member.id !== '156482326887530498') {
         return message.reply(`Sorry, but only those with the ${birthdayRole} Role can use this command!`);
       }
 
