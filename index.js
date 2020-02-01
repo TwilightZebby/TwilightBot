@@ -45,6 +45,8 @@ client.on("ready", () => {
 // Birthday Role stuff
 // Just for my private server with my IRL friends
 // Yes, we have a Birthday Role lol
+let userStore = new Map();
+
 client.on('guildMemberUpdate', (oldMember, newMember) => {
 
   // First, ensure this is the correct Server
@@ -56,18 +58,44 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
     return;
   }
 
+  // Set User into Map for timing reasons
+  let bUser;
+  bUser = userStore.get(newMember.user.id);
+  if ( !bUser ) {
+    let bUserConstruct = {
+      name: newMember.displayName,
+      id: newMember.user.id,
+      timeout: null
+    };
+    userStore.set(newMember.user.id, bUserConstruct);
+  }
+
+
   // Now, check for the highest Role and see if that is the Birthday Role!
   const birthdayRole = newMember.guild.roles.get('286566932629422084'); // Grab the Role Object
   const announceChannel = newMember.guild.channels.get('156482432902758400'); // Grab the Channel to announce in!
 
-  if ( ( newMember.roles.highest === birthdayRole ) && ( oldMember.roles.highest !== birthdayRole ) ) {
+  if ( ( newMember.roles.highest === birthdayRole ) && ( !oldMember.roles.has(birthdayRole) ) ) {
     
     const roleEmbed = new Discord.MessageEmbed().setColor(birthdayRole.hexColor).setFooter(`IT'S ${newMember.displayName}'S BIRTHDAY YO`);
 
     roleEmbed.addField(`It's a Birthday! 🎉`, `Hey, it's ${newMember}'s Birthday today!\n\n${newMember} - you can use the Role Command to change the name and colour of ${birthdayRole}!\n\nUse \`${PREFIX}help role\` to see how`);
     announceChannel.send(roleEmbed);
 
+
+    // Start 24hour timer
+    // This is to auto-remove Role from User after 24 hours
+    birthdayUser = userStore.get(newMember.user.id);
+    birthdayUser.timeout = client.setTimeout(function(){
+
+      let bMember = announceChannel.members.get(birthdayUser.id);
+      bMember.roles.remove(birthdayRole);
+
+      // END of Timeout for birthdayUser
+    }, 8.64e+7);
+
   }
+
 
 });
 
