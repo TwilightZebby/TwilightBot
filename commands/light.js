@@ -15,6 +15,7 @@ module.exports = {
     async execute(message, args) {
       await kasa.login(KASAEMAIL, KASAPASSWORD);
       const request = args.shift().toLowerCase();
+      const lightEmbed = new Discord.MessageEmbed().setColor('#ffffff').setFooter('Light Status');
 
       // Just in case command is used outside my private Guild
       if(message.author.id != '156482326887530498') {
@@ -65,6 +66,37 @@ module.exports = {
          .then(info => {
            message.reply(`Bulb info has been dumped into the Console.`);
            return console.log(info);
+         })
+         .catch(error => {
+           console.log(error);
+           return message.reply(`Sorry, something went wrong!`);
+         })
+      }
+      // FOR GRABBING CURRENT INFO ABOUT THE BULB AND DUMPING INTO CHAT
+      else if (request === 'status') {
+
+        // Only Zebby can use this command
+        if (message.author.id !== '156482326887530498') { return message.reply(`Sorry, but you cannot use this option!`); }
+
+        await kasa.info(LIGHTID)
+         .then(info => {
+           // Get the Info
+           let powerState = info.light_state.on_off;
+           if ( powerState === 1 ) { powerState = "on"; } else { powerState = "off"; }
+           
+           if ( powerState === "on" ) {
+             let stateHue = info.light_state.hue;
+             let stateSaturation = info.light_state.saturation;
+             let stateBrightness = info.light_state.brightness;
+
+             lightEmbed.addField(`Power State:`, powerState);
+             lightEmbed.addField(`Hue Value: `, `${stateHue} / 360`, true);
+             lightEmbed.addField(`Saturation Value:`, `${stateSaturation} / 360`, true);
+             lightEmbed.addField(`Brightness:`, `${stateBrightness}%`, true);
+
+             return message.channel.send(lightEmbed);
+           }
+
          })
          .catch(error => {
            console.log(error);
