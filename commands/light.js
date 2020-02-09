@@ -204,7 +204,7 @@ module.exports = {
           }
 
           var colourValue = args.shift().toLowerCase();
-          const colourOptions = ['list', 'purple', 'red', 'lime'];
+          const colourOptions = ['list', 'purple', 'red', 'lime', 'turquoise', 'cream', 'yellow', 'blue', 'green'];
         
           // Ensure value is a pre-set option
           if (!colourOptions.includes(colourValue)) {
@@ -214,9 +214,9 @@ module.exports = {
           // LIST
           if (colourValue === 'list') {
             return message.channel.send(`Here is a list of all the pre-set colours:\n
-            blue, red, lime`);
+            ${colourOptions.join(', ')}`);
           }
-          // BLUE
+          // PURPLE
           else if (colourValue === 'purple') {
             await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 250 } )
            .then(status => {
@@ -235,6 +235,46 @@ module.exports = {
           // LIME
           else if (colourValue === 'lime') {
             await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 150 } )
+           .then(status => {
+             return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+           })
+           .catch(err => console.error(err));
+          }
+          // TURQUOISE
+          else if (colourValue === 'turquoise') {
+            await kasa.power(LIGHTID, true, 1, { saturation: 11, hue: 148 } )
+           .then(status => {
+             return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+           })
+           .catch(err => console.error(err));
+          }
+          // CREAM
+          else if (colourValue === 'cream') {
+            await kasa.power(LIGHTID, true, 1, { saturation: 2, hue: 87 } )
+           .then(status => {
+             return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+           })
+           .catch(err => console.error(err));
+          }
+          // YELLOW
+          else if (colourValue === 'yellow') {
+            await kasa.power(LIGHTID, true, 1, { saturation: 99, hue: 59 } )
+           .then(status => {
+             return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+           })
+           .catch(err => console.error(err));
+          }
+          // BLUE
+          else if (colourValue === 'blue') {
+            await kasa.power(LIGHTID, true, 1, { saturation: 100, hue: 241 } )
+           .then(status => {
+             return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
+           })
+           .catch(err => console.error(err));
+          }
+          // GREEN
+          else if (colourValue === 'green') {
+            await kasa.power(LIGHTID, true, 1, { saturation: 99, hue: 116 } )
            .then(status => {
              return message.reply(`Successfully changed Zebby's light colour to ${colourValue}`);
            })
