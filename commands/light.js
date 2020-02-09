@@ -18,8 +18,8 @@ module.exports = {
       const lightEmbed = new Discord.MessageEmbed().setColor('#ffffff').setFooter('Light Status');
 
       // Just in case command is used outside my private Guild
-      if(message.author.id != '156482326887530498') {
-        return message.reply(`Sorry, but that command can only be used by <@156482326887530498>`)
+      if(message.guild.id != '156482432902758400') {
+        return message.reply(`Sorry, but that command can only be used in trusted Guilds`)
       }
 
 
