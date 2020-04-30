@@ -24,7 +24,7 @@ module.exports = {
         return message.client.users.get(id);
       }
 
-      const allGuildMembers = message.guild.members.array();
+      const allGuildMembers = Array.from(message.guild.members.cache.values());
       const guildMemberCount = allGuildMembers.length;
       const randomMemberInt = Math.floor((Math.random() * guildMemberCount) + 0);
       const randomMember = allGuildMembers[randomMemberInt];

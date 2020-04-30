@@ -63,13 +63,20 @@ module.exports = {
       // Now for the actual timer!
       
       user = timerStore.get(message.author.id);
-      user.message = await message.channel.send(`Countdown Timer for ${message.author}`);
+      user.message = await message.channel.send({
+        embed: {
+          title: `${message.member.displayName}\'s Countdown`,
+          color: '#09ad32',
+          description: `${argSeconds} seconds remaining...\n(0%)`,
+          footer: `Countdown powered by Dr1fterX`,
+        }
+      });
       user.startSecs = argSeconds;
       user.timer = client.setInterval(() => {
         
         if ( user.seconds === user.startSecs ) {
           
-          countEmbed.setTitle(`${message.member.displayName}\'s Countdown:`);
+          countEmbed.setTitle(`${message.member.displayName}\'s Countdown`);
           countEmbed.setDescription(`TIMER ENDED`);
           user.message.edit(countEmbed);
 
@@ -81,7 +88,7 @@ module.exports = {
 
         user.seconds += 2;
 
-        countEmbed.setTitle(`${message.member.displayName}\'s Countdown:`);
+        countEmbed.setTitle(`${message.member.displayName}\'s Countdown`);
         let randomSeconds = Math.floor( ( Math.random() * user.startSecs ) + 0 );
 
         // Percentages

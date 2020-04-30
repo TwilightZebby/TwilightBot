@@ -13,7 +13,7 @@ module.exports = {
         message.reply(`Sorry! I cannot delete more than 100 messages....`);
       }
       else if(args[0] <= 101 && args[0] >= 1) {
-        message.channel.bulkDelete(args[0])
+        message.channel.bulkDelete(args[0] + 1)
          .catch(err => console.log(err));
       }
       else if(args[0] < 1) {

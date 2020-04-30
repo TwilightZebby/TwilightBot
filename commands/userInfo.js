@@ -22,7 +22,7 @@ module.exports = {
         // so use index 1.
         const id = matches[1];
 
-        return message.client.users.get(id);
+        return message.client.users.resolve(id);
       }
 
       if(!args.length) {
@@ -45,7 +45,7 @@ module.exports = {
         var cUserNotablePermissions = null;
         // Thing for assigning above values
         if(cUserMember) {
-          cUserRoles = cUserMember.roles.array();
+          cUserRoles = Array.from(cUserMember.roles.cache.values());
           cUserJoinedGuild = cUserMember.joinedAt.toDateString();
           guildName = message.guild.name;
 

@@ -14,7 +14,7 @@ module.exports = {
         return message.reply(`Sorry, but this command is limited to one specific server!`);
       }
 
-      const birthdayRole = message.guild.roles.get('286566932629422084');
+      const birthdayRole = message.guild.roles.resolve('286566932629422084');
 
       // Check Member has the Birthday Role
       if (message.member.roles.highest.id !== '286566932629422084' || message.member.id !== '156482326887530498') {
@@ -49,8 +49,11 @@ module.exports = {
         if ( args[0] === 'list' ) {
           const roleEmbed = new Discord.MessageEmbed().setColor(birthdayRole.hexColor).setFooter('Birthday Role Management');
 
-          roleEmbed.addField(`List of pre-set colours:`, colourArray.join(`\n`));
-          roleEmbed.addField(`Command Guideance`, `Please note, when using a pre-set colour in the command - make sure to type the colour's name **exactly** as it appears *including* the underscore ( _ )`);
+          roleEmbed.addFields(
+            { name: `List of pre-set colours`, value: colourArray.join(`\n`) },
+            { name: `Command Guideance`, value: `Please note, when using a pre-set colour in the command - make sure to type the colour's name **exactly** as it appears *including* the underscore ( _ )` }
+          );
+
           return message.channel.send(roleEmbed);
         }
         // Check if pre-set option

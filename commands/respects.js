@@ -1,13 +1,12 @@
 module.exports = {
     name: 'respects',
     description: 'Pay your respects. Can be used with or without a User Mention',
-    usage: '<@user|string>',
-    aliases: ['respect', 'r', 'f'],
+    usage: '[@user|string]',
+    aliases: ['respect', 'f'],
     commandType: 'general',
-    args: true,
+    //args: true,
     guildAccess: 'all',
     execute(message, args) {
-      const argsTest = args[0];
       var mentionTest = 1;
       var peep = null;
 
@@ -21,14 +20,14 @@ module.exports = {
         // so use index 1.
         const id = matches[1];
 
-        return message.client.users.get(id);
+        return message.client.users.resolve(id);
       }
 
       /***************
        * If no arguments
        ***************/
 
-       if(!argsTest) {
+       if(!args.length) {
          return message.channel.send(`❤ ${message.member} has paid their respects.`);
        } else {
           try {

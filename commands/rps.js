@@ -4,7 +4,7 @@ module.exports = {
     name: 'rps',
     description: 'Play Rock Paper Scissors with the Bot!',
     usage: '<rock|r|paper|p|scissors|s>',
-    aliases: ['rockpaperscissors'],
+    //aliases: ['rockpaperscissors'],
     commandType: 'fun',
     args: true,
     guildAccess: 'all',

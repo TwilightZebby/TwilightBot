@@ -22,7 +22,7 @@ module.exports = {
 
       const guildBoostTier = thisGuild.premiumTier;
 
-      const guildChannelAmount = thisGuild.channels.array().filter(channel => {
+      const guildChannelAmount = Array.from(thisGuild.channels.cache.values()).filter(channel => {
         if (channel.type === 'category') {
           return false;
         } else {
@@ -37,14 +37,14 @@ module.exports = {
 
 
       // SPECIFIC GUILD INFO
-      const guildNonBotMembers = thisGuild.members.array().filter(member => { return !member.user.bot; });
+      const guildNonBotMembers = Array.from(thisGuild.members.cache.values()).filter(member => { return !member.user.bot; });
       const guildNBMemberAmount = guildNonBotMembers.length;
 
-      var guildEmojis = thisGuild.emojis.array();
+      var guildEmojis = Array.from(thisGuild.emojis.cache.values());
       var guildEmojiAmount = null;
       if(guildEmojis === undefined) { guildEmojis = null; } else { guildEmojiAmount = guildEmojis.length; }
 
-      var guildRoleAmount = thisGuild.roles.array().length;
+      var guildRoleAmount = Array.from(thisGuild.roles.cache.values()).length;
       if(guildRoleAmount === undefined) { guildRoleAmount = null; }
 
 
