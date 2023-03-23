@@ -3,6 +3,9 @@
 
 Just a small bot I made for my private server with my IRL (real-life) friends!
 
+# THE LICENSE
+The License for this Project, and all of TwilightZebby's Projects, can be [found here](https://github.com/TwilightZebby/license/blob/main/license.md).
+
 ---
 This Bot uses Discord.js v12.
 
